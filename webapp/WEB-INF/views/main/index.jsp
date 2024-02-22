@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.javaex.vo.UserVo" %>
 
+<% 
+	UserVo authUser = (UserVo)session.getAttribute("authUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,38 +16,11 @@
 
 <body>
 	<div id="wrap">
+		<!-- header, nav -->
+		<!-- header.jsp에서 header와 nav를 불러오는 코드 -->
+		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+		<!-- //header, nav -->
 
-		<div id="header" class="clearfix">
-			<h1>
-				<a href="">MySite</a>
-			</h1>
-
-			<!-- 
-			<ul>
-				<li>황일영 님 안녕하세요^^</li>
-				<li><a href="" class="btn_s">로그아웃</a></li>
-				<li><a href="" class="btn_s">회원정보수정</a></li>
-			</ul>
-			-->	
-			<ul>
-				<li><a href="" class="btn_s">로그인</a></li>
-				<li><a href="" class="btn_s">회원가입</a></li>
-			</ul>
-			
-		</div>
-		<!-- //header -->
-
-		<div id="nav">
-			<ul class="clearfix">
-				<li><a href="">입사지원서</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">방명록</a></li>
-			</ul>
-		</div>
-		<!-- //nav -->
-
-		
 		<div id="container" class="clearfix">
 			<!-- aside 없음 -->
 			<div id="full-content">
@@ -69,7 +46,7 @@
 							<br>
 							(자유롭게 꾸며보세요!!)<br>
 							<br><br>
-							<a class="" href="">[방명록에 글 남기기]</a>
+							<a class="" href="/mysite3/gbc?action=list">[방명록에 글 남기기]</a>
 						</p>	
 					</div>
 					<!-- //greetings -->
@@ -85,13 +62,10 @@
 
 		</div>
 		<!-- //container -->
-		
-		
-		<div id="footer">
-			Copyright ⓒ 2020 황일영. All right reserved
-		</div>
+		<!-- footer -->
+		<!-- footer.jsp를 불러오는 코드 / 주소 작성 주의 -->
+		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 		<!-- //footer -->
-
 	</div>
 	<!-- //wrap -->
 
