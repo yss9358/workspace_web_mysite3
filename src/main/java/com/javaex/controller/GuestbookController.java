@@ -16,14 +16,11 @@ import com.javaex.vo.GuestbookVo;
 @WebServlet("/gbc")
 public class GuestbookController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("guestbookcontroller");
 		String action = request.getParameter("action");
 		
 		if("list".equals(action)) {
-			/*System.out.println("book-list");*/
 			GuestbookDao geustbookDao = new GuestbookDao();
 			List<GuestbookVo> guestbookList = geustbookDao.guestSelect();
 			System.out.println(guestbookList.toString());

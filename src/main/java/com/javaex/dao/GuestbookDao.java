@@ -49,26 +49,6 @@ public class GuestbookDao {
 		}
 	} // close();
 	
-	public void guestadd(GuestbookVo guestbookVo) {
-		this.getConnection();
-		try {
-			String query = "";
-			query += " insert into guestbook ";
-			query += " value(null, ?, ?, ?, date_format(now(),'%Y-%m-%d %H:%i:%s')) ";
-			
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, guestbookVo.getName());
-			pstmt.setString(2, guestbookVo.getPassword());
-			pstmt.setString(3, guestbookVo.getContent());
-			pstmt.executeUpdate();
-			
-			/*System.out.println("등록되었습니다.");*/
-		} catch(SQLException e) {
-			System.out.println("error:" + e);
-		}
-		this.close();
-	} // guestadd()
-	
 	public List<GuestbookVo> guestSelect() {
 		this.getConnection();
 		List<GuestbookVo> guestbookList = new ArrayList<GuestbookVo>();
@@ -102,6 +82,28 @@ public class GuestbookDao {
 		this.close();
 		return guestbookList;
 	}// guestSelect
+	
+	public void guestadd(GuestbookVo guestbookVo) {
+		this.getConnection();
+		try {
+			String query = "";
+			query += " insert into guestbook ";
+			query += " value(null, ?, ?, ?, date_format(now(),'%Y-%m-%d %H:%i:%s')) ";
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, guestbookVo.getName());
+			pstmt.setString(2, guestbookVo.getPassword());
+			pstmt.setString(3, guestbookVo.getContent());
+			pstmt.executeUpdate();
+			
+			/*System.out.println("등록되었습니다.");*/
+		} catch(SQLException e) {
+			System.out.println("error:" + e);
+		}
+		this.close();
+	} // guestadd()
+	
+	
 	
 	public void guestDelete(int no) {
 		this.getConnection();
