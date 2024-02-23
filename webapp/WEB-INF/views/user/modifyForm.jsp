@@ -2,7 +2,6 @@
 <%@ page import="com.javaex.vo.UserVo" %>
 
 <% 
-	
 	 UserVo authUserVo = (UserVo)request.getAttribute("authUserVo");
 %>
 <!DOCTYPE html>
@@ -70,13 +69,17 @@
 							<!-- //나이 -->
 							<div class="form-group">
 								<span class="form-text">성별</span> 
-								
-								<label for="rdo-male">남</label> 
-								<input type="radio" id="rdo-male" name="gender" value="male" checked="checked"> 
-								
-								<label for="rdo-female">여</label> 
-								<input type="radio" id="rdo-female" name="gender" value="female"> 
-	
+								<%if("male".equals(authUserVo.getGender())){ %>
+									<label for="rdo-male">남</label> 
+									<input type="radio" id="rdo-male" name="gender" value="male" checked="checked"> 
+									<label for="rdo-female">여</label> 
+									<input type="radio" id="rdo-female" name="gender" value="female"> 
+								<%} else if("female".equals(authUserVo.getGender())){%>
+									<label for="rdo-male">남</label> 
+									<input type="radio" id="rdo-male" name="gender" value="male"> 
+									<label for="rdo-female">여</label> 
+									<input type="radio" id="rdo-female" name="gender" value="female" checked="checked"> 
+								<%} %>
 							</div>
 	
 							<!-- 버튼영역 -->
