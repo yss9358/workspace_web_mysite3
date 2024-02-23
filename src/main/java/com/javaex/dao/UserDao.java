@@ -62,7 +62,7 @@ public class UserDao {
 			pstmt.setString(3, userVo.getName());
 			pstmt.setString(4, userVo.getGender());
 			pstmt.executeUpdate();
-			System.out.println("등록완료");
+			/*System.out.println("등록완료");*/
 		} catch(SQLException e) {
 			System.out.println("error:" + e);
 		}
@@ -151,7 +151,7 @@ public class UserDao {
 			pstmt.setInt(4, userVo.getNo());
 			
 			pstmt.executeUpdate();
-			System.out.println("수정되었습니다");
+			/*System.out.println("수정되었습니다");*/
 		}catch(SQLException e) {
 			System.out.println("error:" + e);
 		}

@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.javaex.vo.UserVo" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<% 
-	UserVo authUser = (UserVo)session.getAttribute("authUser");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +15,7 @@
 	<div id="wrap">
 		<!-- header, nav -->
 		<!-- header.jsp에서 header와 nav를 불러오는 코드 -->
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 		<!-- //header, nav -->
 
 		<div id="container" class="clearfix">
@@ -33,7 +30,14 @@
 					<div id="greetings">
 						<p class="text-xlarge">
 							<span class="bold">안녕하세요!!<br>
-							황일영의 MySite에 오신 것을 환영합니다.<br>
+							<c:choose>
+								<c:when test="${ !(empty sessionScope.authUser) }">
+									${sessionScope.authUser.name}의 MySite에 오신 것을 환영합니다.<br>
+								</c:when>
+								<c:otherwise>
+									MySite에 오신것을 환영합니다
+								</c:otherwise>
+							</c:choose>
 							<br>
 							이 사이트는 웹 프로그램밍 실습과제 예제 사이트입니다.<br>
 							</span>
@@ -46,7 +50,12 @@
 							<br>
 							(자유롭게 꾸며보세요!!)<br>
 							<br><br>
-							<a class="" href="/mysite3/gbc?action=list">[방명록에 글 남기기]</a>
+							<c:choose>
+							<c:when test="${ !(empty sessionScope.authUser) }">
+								<a class="" href="/mysite3/gbc?action=list">[방명록에 글 남기기]</a>
+							</c:when>
+							<c:otherwise></c:otherwise>
+							</c:choose>
 						</p>	
 					</div>
 					<!-- //greetings -->
@@ -59,13 +68,14 @@
 			</div>
 			<!-- //full-content -->
 			
-
 		</div>
 		<!-- //container -->
+		
 		<!-- footer -->
 		<!-- footer.jsp를 불러오는 코드 / 주소 작성 주의 -->
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
+		
 	</div>
 	<!-- //wrap -->
 

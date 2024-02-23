@@ -17,24 +17,16 @@ import com.javaex.vo.UserVo;
 @WebServlet("/user")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 유저가 실행되는지 확인
-		System.out.println("UserController"); // /user 가 실행되는지
-		
 		// user에서 업무구분
 		String action = request.getParameter("action");
-		System.out.println(action); // action 값에 뭘 넣었는지
 		
 		if("joinform".equals(action)) {
-			//회원가입폼
-			System.out.println("user>joinForm");
 			WebUtil.forward(request, response, "/WEB-INF/views/user/joinForm.jsp");
+			
 		} else if("join".equals(action)) {
 			/* http://localhost:8080/mysite3/user?action=join&id=aaa&password=123&name=정우성&gender=male */
-			//회원가입
-			System.out.println("user>join");
 			//꺼내기
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
@@ -43,21 +35,20 @@ public class UserController extends HttpServlet {
 			
 			//꺼낸 데이터를 Vo로 저장
 			UserVo userVo = new UserVo(id, password, name, gender);
-			System.out.println(userVo);//꺼낸값 확인
+			/*System.out.println(userVo);*/ //꺼낸값 확인
 			
 			//Vo에 저장한 데이터를 dao의 메소드로 실행시켜서 db에 추가해야함.
 			UserDao userDao = new UserDao();
 			userDao.insertUser(userVo);
-			System.out.println("userdao완");
+			/*System.out.println("userdao완");*/
 			
 			WebUtil.forward(request, response, "/WEB-INF/views/user/joinOk.jsp");
 		} else if("loginform".equals(action)){
-			System.out.println("UserLoginForm");
-			
 			WebUtil.forward(request, response, "/WEB-INF/views/user/loginForm.jsp");
+			
 		} else if("login".equals(action)) {
 			// action=login 이 적용되는지
-			System.out.println("User>login");
+			/*System.out.println("User>login");*/
 			// parameter 꺼내기
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
@@ -75,37 +66,29 @@ public class UserController extends HttpServlet {
 				session.setAttribute("authUser", authUser);
 				WebUtil.redirect(request, response, "/mysite3/main");
 			} else{ // 로그인실패
-				
 				WebUtil.redirect(request, response, "/mysite3/user?action=loginform");
 			}
 		} else if("logout".equals(action)) {
-			System.out.println("user>logout");
-			
 			HttpSession session = request.getSession();
 			// session 에서 값을 제거하면 로그아웃
 			// session.removeAttribute(""); 하면 특정 값만 제거 가능
-			session.invalidate();
+			session.invalidate(); // session 안의 주소들을 전부 지움
+			
 			WebUtil.redirect(request, response, "/mysite3/main");
 		} else if("modifyform".equals(action)) {
-			System.out.println("user>modifyform");
-			
 			HttpSession session = request.getSession();
 			int no = ((UserVo)session.getAttribute("authUser")).getNo();
-			System.out.println(no);
 			
 			UserDao userDao = new UserDao();
 			UserVo authUserVo = userDao.getUserByNo(no);
 			request.setAttribute("authUserVo", authUserVo);
-			System.out.println(authUserVo);
+			
 			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyForm.jsp");
 		} else if("modify".equals(action)) {
-			System.out.println("user>modify");			
-			
 			UserVo userVo = new UserVo();
 			
 			HttpSession session = request.getSession();
 			int no = ((UserVo)session.getAttribute("authUser")).getNo();
-			System.out.println(no);
 			
 			userVo.setNo(no);
 			userVo.setPassword(request.getParameter("password"));
@@ -114,20 +97,14 @@ public class UserController extends HttpServlet {
 			
 			UserDao userDao = new UserDao();
 			userDao.updateUser(userVo);
-			System.out.println(userVo.toString());
 			
 			session.removeAttribute("authUser");
 			session.setAttribute("authUser", userVo);
-		
-			
-			
+
 			WebUtil.redirect(request, response, "/mysite3/main");
 		} else {
 			System.out.println("action값을 다시 확인해주세요");
 		}
-		
-		
-		
 		
 	} //doGet
 
