@@ -7,6 +7,9 @@ create table users(
     name varchar(20), -- 이름
     gender varchar(10) -- 성별
 );
+
+alter table board add foreign key(no) references users(no);
+
 -- 전체 불러오기
 select	no,
 		id,
@@ -86,8 +89,8 @@ value(null, 'name', 'password','content', date_format(now(),'%Y-%m-%d %H:%i:%s')
 
 -- guestbook 삭제
 delete from guestbook
-
-where no = 1
+where no = '12'
+and password= '123'
 ;
 -- 한명 불러오기
 select	no,
@@ -104,9 +107,18 @@ select	no,
         reg_date regDate
 from guestbook
 order by no desc
+limit 2
 ;
 
 
 
 show tables;
 
+create table board(
+	no int auto_increment primary key, -- 게시물식별번호
+    title varchar(500) not null, -- 제목
+    content varchar(4000), -- 내용
+    hit number 0 , -- 조회수
+    reg_date date not null, -- 등록일
+    user_no number 
+);
