@@ -29,12 +29,30 @@ insert into users
 value(null, 'yss', '1234', '유승수', 'male')
 ;
 insert into users
-value(null, 'aaa', '123', '유승수', 'male');
+value(null, 'id', 'password', 'name', 'female')
+;
+
+
 
 update users
 set gender = 'male'
 where no = 1
 ;
+
+delete from users
+where no = 21
+;
+
+select	id,
+		password
+from users
+where id = 'aaa'
+and password = '123'
+;
+
+
+
+
 
 -- 수정
 update users
@@ -58,7 +76,7 @@ select	no,
 		name,
         password,
         content,
-        reg_date
+        reg_date regDate
 from guestbook
 ;
 -- 추가
@@ -78,4 +96,17 @@ from users
 where id = 'aaa'
 and password = '123'
 ;
+
+select	no,
+		name,
+        password,
+        content,
+        reg_date regDate
+from guestbook
+order by no desc
+;
+
+
+
+show tables;
 
